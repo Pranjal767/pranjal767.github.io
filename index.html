@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranjal Jha - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #e50914;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23141414" width="1200" height="800"/><g fill="%23e50914" opacity="0.1"><circle cx="200" cy="200" r="100"/><circle cx="800" cy="400" r="150"/><circle cx="1000" cy="100" r="80"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(229,9,20,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(229,9,20,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -250px;
+            left: -250px;
+            animation: pulse 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        .floating-cube {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(229,9,20,0.3);
+            transform-style: preserve-3d;
+            animation: rotate3d 20s linear infinite;
+        }
+
+        .cube1 { top: 10%; left: 10%; }
+        .cube2 { top: 70%; right: 15%; animation-duration: 25s; }
+        .cube3 { bottom: 20%; left: 60%; animation-duration: 30s; }
+
+        @keyframes rotate3d {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+            max-width: 900px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #fff, #e50914);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: #e50914;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #f40612;
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(229,9,20,0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: #e50914;
+        }
+
+        section {
+            padding: 5rem 10%;
+            position: relative;
+            background: #000;
+        }
+
+        section:nth-child(even) {
+            background: #0a0a0a;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #e50914;
+            margin: 1rem auto;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.9;
+            font-size: 1.15rem;
+            background: rgba(255,255,255,0.03);
+            padding: 3rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, rgba(229,9,20,0.1) 0%, rgba(0,0,0,0.5) 100%);
+            padding: 2.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(229,9,20,0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(229,9,20,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .skill-card:hover::before {
+            left: 100%;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(229,9,20,0.3);
+            border-color: #e50914;
+        }
+
+        .skill-card h3 {
+            color: #e50914;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .skill-card p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .education-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, rgba(229,9,20,0.1) 0%, rgba(0,0,0,0.5) 100%);
+            padding: 2.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #e50914;
+            transition: all 0.3s;
+            border: 1px solid rgba(229,9,20,0.3);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(229,9,20,0.3);
+        }
+
+        .timeline-item h3 {
+            color: #e50914;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .timeline-item .date {
+            color: #999;
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .timeline-item p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .achievement {
+            background: rgba(229,9,20,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            border: 1px solid rgba(229,9,20,0.3);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: #0a0a0a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(229,9,20,0.3);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(229,9,20,0.4);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #e50914 0%, #831010 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-img::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            color: #e50914;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-content p {
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(229,9,20,0.3);
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-icon {
+            background: linear-gradient(135deg, rgba(229,9,20,0.2) 0%, rgba(0,0,0,0.5) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(229,9,20,0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            min-width: 200px;
+        }
+
+        .contact-icon:hover {
+            transform: translateY(-10px);
+            border-color: #e50914;
+            box-shadow: 0 20px 40px rgba(229,9,20,0.4);
+        }
+
+        .contact-icon svg {
+            width: 60px;
+            height: 60px;
+            fill: #e50914;
+        }
+
+        .contact-icon span {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .contact-icon p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            padding: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-links a:hover {
+            color: #e50914;
+            border-color: #e50914;
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero .tagline {
+                font-size: 1.3rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            color: #e50914;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="floating-cube cube1"></div>
+        <div class="floating-cube cube2"></div>
+        <div class="floating-cube cube3"></div>
+        
+        <div class="hero-content">
+            <h1>Pranjal Jha</h1>
+            <p class="tagline">Aspiring Developer | Lifelong Learner | Tech Enthusiast</p>
+            <p class="subtitle">Passionate about crafting digital experiences and constantly evolving with emerging technologies. JEE Advanced Qualifier with a hunger for innovation.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p>Hello! I'm Pranjal Jha, an enthusiastic learner with an insatiable appetite for technology and innovation. My journey into the world of development is driven by genuine curiosity and a deep passion for creating meaningful digital solutions.</p>
+            <br>
+            <p>What sets me apart is my <strong>hunger for learning</strong> and my ability to quickly adapt to new technologies. With a strong foundation in problem-solving (demonstrated through my JEE success), I believe that in the ever-evolving tech landscape, the willingness to learn is just as valuable as existing knowledge. I'm constantly exploring new frameworks, tools, and methodologies to expand my skill set and stay ahead of the curve.</p>
+            <br>
+            <p>I approach every project as an opportunity to grow, every challenge as a chance to innovate, and every line of code as a step toward mastery. My goal is to contribute to impactful projects while continuously evolving as a developer.</p>
+            <br>
+            <p><strong>Core Values:</strong> Continuous Learning • Problem Solving • Adaptability • Innovation • Collaboration</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>🌐 Web Development</h3>
+                <p><strong>HTML5</strong> - Building semantic and accessible web structures</p>
+                <p><strong>CSS3</strong> - Creating responsive and beautiful designs</p>
+            </div>
+            <div class="skill-card">
+                <h3>💻 Programming</h3>
+                <p>Currently expanding knowledge in:</p>
+                <p>• JavaScript<br>• Python<br>• Modern Web Technologies</p>
+            </div>
+            <div class="skill-card">
+                <h3>🎨 Design & Tools</h3>
+                <p>• Responsive Design<br>• Git & GitHub<br>• VS Code<br>• Problem Solving</p>
+            </div>
+            <div class="skill-card">
+                <h3>🚀 Learning & Growth</h3>
+                <p>Actively exploring:<br>• React & Modern Frameworks<br>• Backend Development<br>• Database Management<br>• Cloud Technologies</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education-timeline">
+            <div class="timeline-item">
+                <h3>BSc in Computer Science</h3>
+                <div class="date">2025 - Present</div>
+                <p><strong>Guardian Degree College, Mumbai University</strong></p>
+                <p>Currently pursuing my Bachelor's degree in Computer Science, focusing on foundational programming, data structures, and modern development practices.</p>
+                <span class="achievement">🎓 First Year Undergraduate</span>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>Higher Secondary Education (12th - Science)</h3>
+                <div class="date">2022 - 2024</div>
+                <p><strong>Smt. CHM College</strong></p>
+                <p>Completed HSC in Science stream with 60%</p>
+                <span class="achievement">🏆 JEE Mains 2024 - 95.42 Percentile</span>
+                <span class="achievement">🏆 JEE Advanced 2024 - AIR 9000</span>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>Secondary Education (10th)</h3>
+                <div class="date">Completed 2022</div>
+                <p><strong>Holy Cross English High School</strong></p>
+                <p>Built a strong foundation in academics and developed problem-solving abilities</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>Online Certifications & Courses</h3>
+                <div class="date">Ongoing</div>
+                <p>Continuously learning through platforms:</p>
+                <p>• freeCodeCamp - Responsive Web Design<br>• Coursera - Web Development Specialization<br>• YouTube Tutorials & Documentation<br>• Open Source Contributions</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-img">🌟</div>
+                <div class="project-content">
+                    <h3>Portfolio Website</h3>
+                    <p>A modern, cinematic portfolio website inspired by Netflix's design language, featuring smooth animations, 3D elements, and contemporary design patterns.</p>
+                    <p><strong>Tech:</strong> HTML5, CSS3, Responsive Design, 3D CSS Animations</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">🚀</div>
+                <div class="project-content">
+                    <h3>Coming Soon</h3>
+                    <p>Currently working on exciting new projects that showcase my growing skills and passion for development. Stay tuned for interactive web applications!</p>
+                    <p><strong>Focus:</strong> Interactive Web Apps</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">💡</div>
+                <div class="project-content">
+                    <h3>Future Projects</h3>
+                    <p>Planning to build applications using modern frameworks like React, exploring full-stack development, and creating impactful solutions.</p>
+                    <p><strong>Vision:</strong> Innovative Tech Solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Let's Connect</h2>
+        <div class="about-content" style="text-align: center;">
+            <p>I'm always excited to connect with fellow developers, potential collaborators, and recruiters. Whether you have a project in mind, want to discuss technology, or just want to say hi, feel free to reach out!</p>
+            <br>
+            <p><strong>Email:</strong> jhapranjal09@gmail.com</p>
+            <p><strong>Location:</strong> Mumbai, India</p>
+        </div>
+        <div class="contact-icons">
+            <a href="mailto:jhapranjal09@gmail.com" class="contact-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <span>Email Me</span>
+                <p>jhapranjal09@gmail.com</p>
+            </a>
+            <a href="https://www.linkedin.com/in/pranjal-jha-630a92374/" target="_blank" class="contact-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                </svg>
+                <span>LinkedIn</span>
+                <p>Connect with me</p>
+            </a>
+        </div>
+        
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Pranjal Jha. Built with passion and dedication.</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">Always learning, always growing 🚀</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll to sections
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
