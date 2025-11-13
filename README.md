@@ -30,9 +30,9 @@ It includes:
 
 ## 👨‍💻 Author
 **Pranjal Jha**  
-📚 B.Sc Computer Science Student | Guardian Degree College  
-📫 Email: *your.email@example.com*  
-🌎 GitHub: [https://github.com/yourusername](https://github.com/yourusername)
+📚 B.Sc Computer Science Student | MUMBAI UNIVERSITY 
+📫 Email: *jhapranjal09@gmail.com*  
+🌎 GitHub: [https://github.com/pranjal767](https://github.com/pranjal767)
 
 ---
 
